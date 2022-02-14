@@ -13,4 +13,6 @@ export class UsersService {
     this.prisma.user.findUnique({ where: { email } });
 
   create = (data): Promise<UserPromise> => this.prisma.user.create({ data });
+
+  findMany = () => this.prisma.user.findMany();
 }
