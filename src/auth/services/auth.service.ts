@@ -32,6 +32,4 @@ export class AuthService {
   };
 
   register = async (data: RegisterDto) => this.userService.create(data);
-
-  getAll = () => this.userService.findMany();
 }

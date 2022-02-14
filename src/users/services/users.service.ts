@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
+import { Post, Prisma, Profile, User } from '@prisma/client';
 import { RegisterDto } from 'src/auth/dtos/register.dto';
 import { PrismaService } from 'src/database/services/prisma.service';
 
@@ -14,5 +14,12 @@ export class UsersService {
 
   create = (data): Promise<UserPromise> => this.prisma.user.create({ data });
 
-  findMany = () => this.prisma.user.findMany();
+  getProfile = (id): Promise<Profile> =>
+    this.prisma.profile.findUnique({ where: { userId: id } });
+
+  getPosts = (id): Promise<Post[]> =>
+    this.prisma.post.findMany({ where: { authorId: id } });
+
+  updateProfile = (id, data): Promise<Profile> =>
+    this.prisma.profile.update({ where: { userId: id }, data });
 }

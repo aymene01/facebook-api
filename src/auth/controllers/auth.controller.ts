@@ -18,10 +18,4 @@ export class AuthController {
   register(@Body() data: RegisterDto) {
     return this.authService.register(data);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('/getall')
-  findAll() {
-    return this.authService.getAll();
-  }
 }
