@@ -27,11 +27,11 @@ model Profile {
 }
 
 model User {
-  id        String   @unique
+  id        String   @unique @default(uuid())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @default(now())
   Post      Post[]
   Profile   Profile?
 }
