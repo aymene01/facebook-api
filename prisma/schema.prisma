@@ -8,21 +8,21 @@ datasource db {
 }
 
 model Post {
-  id        Int      @unique @default(autoincrement())
+  id        Int      @id @unique @default(autoincrement())
   message   String
   authorId  String
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime?  
   User      User     @relation(fields: [authorId], references: [id])
 }
 
 model Profile {
-  id        Int      @unique @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   firstName String
   lastName  String
   userId    String   @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   User      User     @relation(fields: [userId], references: [id])
 }
 
