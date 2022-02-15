@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Post, Prisma } from '@prisma/client';
+import { Post } from '@prisma/client';
+import { use } from 'passport';
 import { PrismaService } from 'src/database/services/prisma.service';
 
 @Injectable()
@@ -9,9 +10,9 @@ export class PostsService {
   getPostById = (id: number): Promise<Post> =>
     this.prisma.post.findUnique({ where: { id } });
 
-  createPost = (data) => this.prisma.post.create({ data });
+  // createPost = (id, message) => this.prisma.post.create();
 
-  getAllPost = () => this.prisma.post.findMany();
+  getAllPost = (): Promise<Post[]> => this.prisma.post.findMany();
 
   updatePostById = (id, data) =>
     this.prisma.post.update({ where: { id }, data });

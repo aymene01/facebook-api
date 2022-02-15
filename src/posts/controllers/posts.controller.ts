@@ -23,11 +23,11 @@ export class PostsController {
     return this.postsService.getPostById(parseInt(id, 10));
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  createPost(@Body() message: CreatePostDto) {
-    return this.postsService.createPost(message);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Post()
+  // createPost(@Param('id') id: string, @Body() message: CreatePostDto) {
+  //   return this.postsService.createPost(message, id);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -38,12 +38,12 @@ export class PostsController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   updatePostById(@Param('id') id: string, @Body() data: UpdatePostDto) {
-    return this.postsService.updatePostById(Number(id), data);
+    return this.postsService.updatePostById(parseInt(id, 10), data);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deletePost(@Param('id') id: string) {
-    return this.postsService.deletePostById(Number(id));
+    return this.postsService.deletePostById(parseInt(id, 10));
   }
 }
