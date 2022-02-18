@@ -15,11 +15,9 @@ export class AuthService {
   validateUser = async (email, password): Promise<any> => {
     const user = await this.userService.findUnique(email);
 
-    if (user && (await this.checkPassword(password, user.password))) {
-      // not sending the password for security
-      const { password, ...rest } = user;
-      return rest;
-    }
+    if (user && (await this.checkPassword(password, user.password)))
+      return user;
+
     return null;
   };
 

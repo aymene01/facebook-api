@@ -18,6 +18,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     );
 
     if (!user) throw new UnauthorizedException();
+    // not sending the password
     const { password, ...rest } = user;
     return rest;
   };

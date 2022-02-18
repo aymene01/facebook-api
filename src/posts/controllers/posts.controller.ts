@@ -23,9 +23,9 @@ export class PostsController {
     return this.postsService.getPostById(parseInt(id, 10));
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Post()
-  // createPost(@Param('id') id: string, @Body() message: CreatePostDto) {
+  // // @UseGuards(JwtAuthGuard)
+  // @Post(':id')
+  // createPost(@Param('id') id: string, @Body('message') message: CreatePostDto) {
   //   return this.postsService.createPost(message, id);
   // }
 
