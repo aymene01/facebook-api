@@ -10,15 +10,6 @@ export class PostsService {
   getPostById = (id: number): Promise<Post> =>
     this.prisma.post.findUnique({ where: { id } });
 
-  // createPost = (id, message: CreatePostDto) =>
-  //   this.prisma.post.create({ data: { message }, select: { authorId: id } });
-
-  // createPost = (id, message: CreatePostDto) =>
-  //   this.prisma.post.create({
-  //     data: { message },
-  //     include: { User: id },
-  //   });
-
   getAllPost = (): Promise<Post[]> => this.prisma.post.findMany();
 
   updatePostById = (id, data): Promise<Post> =>

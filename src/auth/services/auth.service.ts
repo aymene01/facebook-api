@@ -4,6 +4,7 @@ import { UsersService } from 'src/users/services/users.service';
 import { LoginDto } from '../dtos/login.dto';
 import { RegisterDto } from '../dtos/register.dto';
 import { hash, compare } from 'bcrypt';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,10 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  validateUser = async (email, password): Promise<any> => {
+  validateUser = async (
+    email: string,
+    password: string,
+  ): Promise<User | null> => {
     const user = await this.userService.findUnique(email);
 
     if (user && (await this.checkPassword(password, user.password)))
@@ -21,10 +25,13 @@ export class AuthService {
     return null;
   };
 
-  checkPassword = async (passwordInput, passwordInDb) =>
-    await compare(passwordInput, passwordInDb);
+  checkPassword = async (
+    passwordInput: string,
+    passwordInDb: string,
+  ): Promise<boolean> => await compare(passwordInput, passwordInDb);
 
-  hashPassword = async (password) => await hash(password, 10);
+  hashPassword = async (password: string): Promise<string> =>
+    await hash(password, 10);
 
   login = async (user: LoginDto) => {
     const { email } = user;
