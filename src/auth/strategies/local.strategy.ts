@@ -12,10 +12,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       passwordField: 'password',
     });
   }
-  validate = async (
+  validate = async <T>(
     usernameField: string,
     passwordField: string,
-  ): Promise<AuthLoginUserResponse> => {
+  ): Promise<unknown> => {
     const user = await this.authService.validateUser(
       usernameField,
       passwordField,
@@ -24,6 +24,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (!user) throw new UnauthorizedException();
     // not sending the password
     const { password, ...rest } = user;
-    return rest;
+    return rest as unknown;
   };
 }

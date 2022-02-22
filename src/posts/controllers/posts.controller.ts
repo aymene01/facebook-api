@@ -7,11 +7,13 @@ import {
   Body,
   Patch,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreatePostDto } from '../dtos/create-post.dto';
 import { UpdatePostDto } from '../dtos/update-post.dto';
 import { PostsService } from '../services/posts.service';
+import { Request } from 'express';
 
 @Controller('posts')
 export class PostsController {
@@ -23,11 +25,11 @@ export class PostsController {
     return this.postsService.getPostById(parseInt(id, 10));
   }
 
-  // // @UseGuards(JwtAuthGuard)
-  // @Post(':id')
-  // createPost(@Param('id') id: string, @Body('message') message: CreatePostDto) {
-  //   return this.postsService.createPost(message, id);
-  // }
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  createPost(@Req() req: any, @Body() message: CreatePostDto) {
+    return this.postsService.createPost(message, req.user.id);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get()
